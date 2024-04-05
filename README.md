@@ -31,7 +31,7 @@ Error reported is:
 [1]     at BackstageBackend.start (/Users/cmoullia/temp/backstage-next/my-demo/node_modules/@backstage/backend-app-api/src/wiring/BackstageBackend.ts:42:11)
 ```
 
-If I debug the same code within the backstage repository, then the error occurs after loading the plugin `notifications`:
+If I debug the code, then the error occurs around here within the `BackendInitializer.ts`:
 ```typescript
 // See: https://github.com/backstage/backstage/blob/23f9a92c3bf357fd5b451e01972e788fcb508fc9/packages/backend-app-api/src/wiring/BackendInitializer.ts#L276-L289
 
