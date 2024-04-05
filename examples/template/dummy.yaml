@@ -1,0 +1,27 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: dummy
+  title: Dummy template
+  description: Dummy template to test fields
+spec:
+  owner: guests
+  type: service
+
+  # These parameters are used to generate the input form in the frontend, and are
+  # used to gather input data for the execution of the template.
+  parameters:
+    - title: input
+      required:
+        - myInput
+      properties:
+        myInput:
+          title: Input
+          type: string
+          description: Input
+  steps:
+    - id: debug
+      name: debug
+      action: debug:log
+      input:
+        message: ${{ parameters.myInput | base64 }}

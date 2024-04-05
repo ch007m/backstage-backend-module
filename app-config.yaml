@@ -1,6 +1,8 @@
 app:
   title: Scaffolded Backstage App
   baseUrl: http://localhost:3000
+  experimental:
+    packages: 'all' # ✨
 
 organization:
   name: My Company
@@ -81,6 +83,12 @@ catalog:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
       target: ../../examples/entities.yaml
+
+    # Local dummy template
+    - type: file
+      target: ../../examples/template/dummy.yaml
+      rules:
+        - allow: [Template]
 
     # Local example template
     - type: file
