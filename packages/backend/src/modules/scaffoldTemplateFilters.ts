@@ -8,11 +8,10 @@ export default createBackendModule({
     register(env) {
         env.registerInit({
             deps: {
-                config: coreServices.rootConfig,
-                scaffolderTemplating: scaffolderTemplatingExtensionPoint,
+                scaffolder: scaffolderTemplatingExtensionPoint,
             },
-            async init({scaffolderTemplating}) {
-                scaffolderTemplating.addTemplateFilters(
+            async init({ scaffolder }) {
+                scaffolder.addTemplateFilters(
                     {base64: (...args: JsonValue[]) => btoa(args.join(""))}
                 );
             },

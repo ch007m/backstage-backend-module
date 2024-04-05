@@ -53,3 +53,75 @@ if (pluginInit) {
 
 ![debug-screen-1.png](image%2Fdebug-screen-1.png)
 
+FYI: The following code works as we don't import the function ... 
+```typescript
+import { createBackend } from '@backstage/backend-defaults';
+import {coreServices, createBackendModule} from '@backstage/backend-plugin-api';
+import {scaffolderTemplatingExtensionPoint} from '@backstage/plugin-scaffolder-node/alpha';
+import {JsonValue} from '@backstage/types';
+
+export const myModule = createBackendModule({
+  pluginId: 'scaffolder',
+  moduleId: 'my-custom-filter',
+  register(env) {
+    env.registerInit({
+      deps: {
+        config: coreServices.rootConfig,
+        scaffolderTemplating: scaffolderTemplatingExtensionPoint,
+      },
+      async init({scaffolderTemplating}) {
+        scaffolderTemplating.addTemplateFilters(
+          { base64: (...args: JsonValue[]) => btoa(args.join(""))}
+        );
+      },
+    });
+  },
+});
+
+const backend = createBackend();
+
+backend.add(import('@backstage/plugin-auth-backend'));
+backend.add(import('./authModuleGithubProvider'));
+backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
+
+backend.add(import('@backstage/plugin-adr-backend'));
+backend.add(import('@backstage/plugin-app-backend/alpha'));
+backend.add(import('@backstage/plugin-azure-devops-backend'));
+backend.add(import('@backstage/plugin-badges-backend'));
+backend.add(import('@backstage/plugin-catalog-backend-module-unprocessed'));
+backend.add(
+  import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
+);
+backend.add(import('@backstage/plugin-catalog-backend/alpha'));
+backend.add(import('@backstage/plugin-devtools-backend'));
+backend.add(import('@backstage/plugin-entity-feedback-backend'));
+backend.add(import('@backstage/plugin-jenkins-backend'));
+backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
+backend.add(import('@backstage/plugin-lighthouse-backend'));
+backend.add(import('@backstage/plugin-linguist-backend'));
+backend.add(import('@backstage/plugin-playlist-backend'));
+backend.add(import('@backstage/plugin-nomad-backend'));
+backend.add(
+  import('@backstage/plugin-permission-backend-module-allow-all-policy'),
+);
+backend.add(import('@backstage/plugin-permission-backend/alpha'));
+backend.add(import('@backstage/plugin-proxy-backend/alpha'));
+backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
+backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
+backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
+backend.add(import('@backstage/plugin-search-backend-module-explore/alpha'));
+backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
+backend.add(
+  import('@backstage/plugin-catalog-backend-module-backstage-openapi'),
+);
+backend.add(import('@backstage/plugin-search-backend/alpha'));
+backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
+backend.add(import('@backstage/plugin-todo-backend'));
+backend.add(import('@backstage/plugin-sonarqube-backend'));
+backend.add(import('@backstage/plugin-signals-backend'));
+backend.add(import('@backstage/plugin-notifications-backend'));
+
+backend.add(myModule);
+
+backend.start();
+```
