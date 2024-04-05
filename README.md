@@ -30,3 +30,26 @@ Error reported is:
 [1]     at BackendInitializer.start (/Users/cmoullia/temp/backstage-next/my-demo/node_modules/@backstage/backend-app-api/src/wiring/BackendInitializer.ts:149:5)
 [1]     at BackstageBackend.start (/Users/cmoullia/temp/backstage-next/my-demo/node_modules/@backstage/backend-app-api/src/wiring/BackstageBackend.ts:42:11)
 ```
+
+If I debug the same code within the backstage repository, then the error occurs after loading the plugin `notifications`:
+```typescript
+// See: https://github.com/backstage/backstage/blob/23f9a92c3bf357fd5b451e01972e788fcb508fc9/packages/backend-app-api/src/wiring/BackendInitializer.ts#L276-L289
+
+// Once all modules have been initialized, we can initialize the plugin itself
+const pluginInit = pluginInits.get(pluginId);
+// We allow modules to be installed without the accompanying plugin, so the plugin may not exist
+if (pluginInit) {
+    const pluginDeps = await this.#getInitDeps(
+        pluginInit.init.deps,
+        pluginId,
+    );
+    await pluginInit.init.func(pluginDeps).catch(error => {
+        throw new ForwardedError(
+            `Plugin '${pluginId}' startup failed`,
+            error,
+        );
+    });
+```
+
+![debug-screen-1.png](image%2Fdebug-screen-1.png)
+
