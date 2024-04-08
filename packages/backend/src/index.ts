@@ -1,5 +1,5 @@
 import { createBackend } from '@backstage/backend-defaults';
-import scaffolderTemplatingExtension from './modules/scaffoldTemplateFilters';
+// import scaffolderTemplatingExtension from './modules/scaffoldTemplateFilters';
 
 /*
 import { createBackendModule } from '@backstage/backend-plugin-api';
@@ -56,8 +56,11 @@ backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
+// Use internal module
+backend.add(import('@internal/backend-module-scaffolder-my-custom-filter'));
+
 // Add the module declared within a sub-path: scaffoldTemplateFilters
-backend.add(scaffolderTemplatingExtension());
+//backend.add(scaffolderTemplatingExtension());
 
 // Using module declared locally
 // backend.add(myModule);

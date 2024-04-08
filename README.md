@@ -117,3 +117,39 @@ info: {
 }
 info: Q2hhcmxlcw== 
 ```
+
+## Use an external module
+
+- Create a backend module within the plugins folder of your backstage app project using the client: `npx @backstage/cli@latest new --select backend-module`
+```bash
+npx @backstage/cli@latest new --select backend-module
+? Enter the ID of the plugin [required] scaffolder
+? Enter the ID of the module [required] my-custom-filter
+cd 
+```
+- Rename the name of the new plugin package created from `"name": "backstage-plugin-scaffolder-backend-module-my-custom-filter",` to `"name": "@internal/backend-module-scaffolder-my-custom-filter",`
+- Update the dependency name within the package.json of the backend application too
+- Override the `createBackendModule` function code within your filter definition:
+```typescript
+... = createBackendModule({
+    pluginId: 'scaffolder',
+    moduleId: 'my-custom-filter',
+    register(env) {
+        env.registerInit({
+            deps: {
+                scaffolder: scaffolderTemplatingExtensionPoint,
+            },
+            async init({ scaffolder }) {
+                scaffolder.addTemplateFilters(
+                    {base64: (...args: JsonValue[]) => btoa(args.join(""))}
+                );
+            },
+        });
+    },
+});
+```
+- Update the code of the `/Users/cmoullia/temp/backstage-next/backstage-backend-module/packages/backend/src/index.ts` 
+  to comment the line importing the module locally `// import scaffolderTemplatingExtension from './modules/scaffoldTemplateFilters';`
+- and import the module `backend.add(import('@internal/backend-module-scaffolder-my-custom-filter'));`
+- Execute `yarn install` to verify that the internal module is well imported
+- Launch backstage locally
