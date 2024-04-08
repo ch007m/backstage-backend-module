@@ -107,7 +107,8 @@ EOF
 ```bash
 yarn dev
 ```
-- Open the `dummy` template, add your name and check the log of the backstage backend application
+- Open the `dummy` template, add your name using the `inputName` field, click on `review` and `create` button
+- Check the log of the backstage backend application
 ```bash
 type=incomingRequest
 2024-04-05T12:14:34.973Z rootHttpRouter info ::1 - - [05/Apr/2024:12:14:34 +0000] "POST /api/scaffolder/v2/tasks HTTP/1.1" 201 45 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36" type=incomingRequest
