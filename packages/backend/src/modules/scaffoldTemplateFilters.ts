@@ -1,5 +1,5 @@
-import {coreServices, createBackendModule} from '@backstage/backend-plugin-api';
-import {scaffolderTemplatingExtensionPoint} from '@backstage/plugin-scaffolder-node';
+import {createBackendModule} from '@backstage/backend-plugin-api';
+import {scaffolderTemplatingExtensionPoint} from '@backstage/plugin-scaffolder-node/alpha';
 import {JsonValue} from '@backstage/types';
 
 export default createBackendModule({

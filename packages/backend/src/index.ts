@@ -1,16 +1,9 @@
-/*
- * Hi!
- *
- * Note that this is an EXAMPLE Backstage backend. Please check the README.
- *
- * Happy hacking!
- */
-
 import { createBackend } from '@backstage/backend-defaults';
-import { createBackendModule } from '@backstage/backend-plugin-api';
-import { scaffolderTemplatingExtensionPoint } from '@backstage/plugin-scaffolder-node';
-import { JsonValue } from '@backstage/types';
 
+/*
+import { createBackendModule } from '@backstage/backend-plugin-api';
+import { scaffolderTemplatingExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
+import { JsonValue } from '@backstage/types';
 const scaffolderTemplatingExtension = createBackendModule({
     pluginId: 'scaffolder',
     moduleId: 'my-custom-filter',
@@ -27,6 +20,7 @@ const scaffolderTemplatingExtension = createBackendModule({
         });
     },
 });
+*/
 
 const backend = createBackend();
 
@@ -60,7 +54,7 @@ backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
 // Add the module: scaffoldTemplateFilters
-// backend.add(import('./modules/scaffoldTemplateFilters'));
-backend.add(scaffolderTemplatingExtension());
+backend.add(import('./modules/scaffoldTemplateFilters'));
+// backend.add(scaffolderTemplatingExtension());
 
 backend.start();
