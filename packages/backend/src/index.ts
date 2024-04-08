@@ -1,15 +1,18 @@
 import { createBackend } from '@backstage/backend-defaults';
+import scaffolderTemplatingExtension from './modules/scaffoldTemplateFilters';
 
 /*
 import { createBackendModule } from '@backstage/backend-plugin-api';
 import { scaffolderTemplatingExtensionPoint } from '@backstage/plugin-scaffolder-node/alpha';
 import { JsonValue } from '@backstage/types';
-const scaffolderTemplatingExtension = createBackendModule({
+
+export const myModule = createBackendModule({
     pluginId: 'scaffolder',
     moduleId: 'my-custom-filter',
     register(env) {
         env.registerInit({
             deps: {
+                // NOT NEEDED: config: coreServices.rootConfig,
                 scaffolder: scaffolderTemplatingExtensionPoint,
             },
             async init({ scaffolder }) {
@@ -53,8 +56,10 @@ backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
-// Add the module: scaffoldTemplateFilters
-backend.add(import('./modules/scaffoldTemplateFilters'));
-// backend.add(scaffolderTemplatingExtension());
+// Add the module declared within a sub-path: scaffoldTemplateFilters
+backend.add(scaffolderTemplatingExtension());
+
+// Using module declared locally
+// backend.add(myModule);
 
 backend.start();

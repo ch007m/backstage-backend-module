@@ -2,7 +2,7 @@ import {createBackendModule} from '@backstage/backend-plugin-api';
 import {scaffolderTemplatingExtensionPoint} from '@backstage/plugin-scaffolder-node/alpha';
 import {JsonValue} from '@backstage/types';
 
-export default createBackendModule({
+const scaffolderTemplatingExtension = createBackendModule({
     pluginId: 'scaffolder',
     moduleId: 'my-custom-filter',
     register(env) {
@@ -18,3 +18,5 @@ export default createBackendModule({
         });
     },
 });
+
+export default scaffolderTemplatingExtension;
