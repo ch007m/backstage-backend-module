@@ -129,6 +129,11 @@ cd
 ```
 - Rename the name of the new plugin package created from `"name": "backstage-plugin-scaffolder-backend-module-my-custom-filter",` to `"name": "@internal/backend-module-scaffolder-my-custom-filter",`
 - Update the dependency name within the package.json of the backend application too
+- Add the needed dependency to the plugin created:
+  ```bash
+  yarn --cwd plugins/scaffolder-backend-module-my-custom-filter add @backstage/plugin-scaffolder-node
+  yarn --cwd plugins/scaffolder-backend-module-my-custom-filter add @backstage/types
+  ``` 
 - Override the `createBackendModule` function code within your filter definition:
 ```typescript
 ... = createBackendModule({
